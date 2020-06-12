@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface TodoService
 {
-   Todos save(Todos todos);
+   Todos save(Todos todo);
 }
