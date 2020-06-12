@@ -1,4 +1,10 @@
 package com.lambdaschool.todos.services;
 
-public interface TodoService {
+import com.lambdaschool.todos.models.Todos;
+
+import java.util.List;
+
+public interface TodoService
+{
+   Todos save(Todos todos);
 }

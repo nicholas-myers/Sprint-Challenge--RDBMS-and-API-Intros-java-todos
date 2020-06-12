@@ -1,19 +1,25 @@
 package com.lambdaschool.todos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "todos")
-public class Todos
-{
+public class Todos {
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
    private long todoid;
 
    @ManyToOne
-   @JoinColumn(name = "todos", nullable = false)
+   @JoinColumn(name = "userid", nullable = false)
+   @JsonIgnoreProperties(value = "todos", allowSetters = true)
    private User user;
+
    private String description;
+
+   public Todos() {
+   }
 
    public Todos(User user, String description) {
       this.user = user;
@@ -35,6 +41,7 @@ public class Todos
    public void setUser(User user) {
       this.user = user;
    }
+
    public String getDescription() {
       return description;
    }

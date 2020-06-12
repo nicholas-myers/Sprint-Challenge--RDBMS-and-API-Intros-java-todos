@@ -2,6 +2,7 @@ package com.lambdaschool.todos.services;
 
 import com.lambdaschool.todos.models.Todos;
 import com.lambdaschool.todos.models.User;
+import com.lambdaschool.todos.repositories.TodoRepository;
 import com.lambdaschool.todos.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,10 +52,11 @@ public class UserServiceImp implements UserService {
       newUser.setPrimaryemail(user.getPrimaryemail());
 
       newUser.getTodos().clear();
-      for (Todos t : user.getTodos()) {
-         Todos newTodos = new Todos(newUser, t.getDescription());
-         newUser.getTodos().add(newTodos);
-      }
+
+         for (Todos t : user.getTodos()) {
+            Todos newTodos = new Todos(newUser, t.getDescription());
+            newUser.getTodos().add(newTodos);
+         }
 
       return userrepos.save(newUser);
    }

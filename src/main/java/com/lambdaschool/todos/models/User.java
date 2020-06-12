@@ -21,6 +21,7 @@ public class User
    @OneToMany(mappedBy = "user",
    cascade = CascadeType.ALL,
    orphanRemoval = true)
+   @JsonIgnoreProperties(value = "user", allowSetters = true)
    private List<Todos> todos = new ArrayList<>();
 
    public User() {
