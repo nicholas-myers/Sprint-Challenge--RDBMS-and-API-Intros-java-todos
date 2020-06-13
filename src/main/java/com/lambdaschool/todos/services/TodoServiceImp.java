@@ -20,6 +20,16 @@ public class TodoServiceImp implements TodoService
    @Autowired
    private UserService userService;
 
+   @Autowired
+   private TodoService todoService;
+
+   @Override
+   public Todos findTodoById(long todoid)
+   {
+      return todorepos.findById(todoid)
+              .orElseThrow(() -> new EntityNotFoundException("Todo with id " + todoid + " Not Found!"));
+   }
+
    @Override
    public Todos save(long userid, String todoDescription)
    {
@@ -27,5 +37,19 @@ public class TodoServiceImp implements TodoService
       Todos newTodo = new Todos(currentUser, todoDescription);
 
       return todorepos.save(newTodo);
+   }
+
+   @Override
+   public Todos update(long todoid, String todoDescription)
+   {
+      if (todorepos.findById(todoid).isPresent())
+      {
+         Todos usertodo = findTodoById(todoid);
+         usertodo.setDescription(todoDescription);
+         return todorepos.save(usertodo);
+      } else {
+         throw new EntityNotFoundException("Todo with id " + todoid + " Not Found!");
+      }
+
    }
 }

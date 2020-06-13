@@ -46,18 +46,15 @@ public class UserServiceImp implements UserService {
          newUser.setUserid(user.getUserid());
       }
 
-
       newUser.setUsername(user.getUsername());
       newUser.setPassword(user.getPassword());
       newUser.setPrimaryemail(user.getPrimaryemail());
 
       newUser.getTodos().clear();
-
          for (Todos t : user.getTodos()) {
             Todos newTodos = new Todos(newUser, t.getDescription());
             newUser.getTodos().add(newTodos);
          }
-
       return userrepos.save(newUser);
    }
 }

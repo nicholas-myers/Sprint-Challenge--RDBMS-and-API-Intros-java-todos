@@ -6,5 +6,9 @@ import java.util.List;
 
 public interface TodoService
 {
+   Todos findTodoById(long todoid);
+
    Todos save(long userid, String todoDescription);
+
+   Todos update(long todoid, String todoDescription);
 }

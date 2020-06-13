@@ -34,4 +34,15 @@ public class TodosController {
               responseHeaders,
               HttpStatus.CREATED);
    }
+
+   @PatchMapping(value = "/todo/{todoid}",
+           consumes = {"application/json"})
+   public ResponseEntity<?> updateUser(@PathVariable
+                                               long todoid,
+                                       @RequestBody
+                                               String todoDescription
+   ) {
+      todoService.update(todoid, todoDescription);
+      return new ResponseEntity<>(HttpStatus.OK);
+   }
 }
