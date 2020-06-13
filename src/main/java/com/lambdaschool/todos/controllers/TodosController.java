@@ -21,8 +21,8 @@ public class TodosController {
    private TodoService todoService;
 
    @PostMapping(value = "/user/{userid}", consumes = {"application/json"})
-   public ResponseEntity<?> addNewTodo(@PathVariable Long userid, @Valid @RequestBody Todos newTodo) throws URISyntaxException {
-      Todos addTodo = todoService.save(userid, newTodo);
+   public ResponseEntity<?> addNewTodo(@PathVariable Long userid, @Valid @RequestBody String todoDescription) throws URISyntaxException {
+      Todos addTodo = todoService.save(userid, todoDescription);
       HttpHeaders responseHeaders = new HttpHeaders();
       URI newTodoURI = ServletUriComponentsBuilder.fromCurrentServletMapping()
               .path("/todos/todo/{todoid}")

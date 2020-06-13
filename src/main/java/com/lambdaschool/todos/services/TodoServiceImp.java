@@ -17,17 +17,14 @@ public class TodoServiceImp implements TodoService
    @Autowired
    private TodoRepository todorepos;
 
-   @Override
-   public Todos save(Todos todo)
-   {
-      Todos newTodo = new Todos();
-      if (todo.getTodoid() != 0) {
-         todorepos.findById(todo.getTodoid())
-                 .orElseThrow(() -> new EntityNotFoundException("Todo " + todo.getTodoid() + " Not Found"));
+   @Autowired
+   private UserService userService;
 
-         newTodo.setTodoid(todo.getTodoid());
-      }
-      newTodo.setDescription(todo.getDescription());
+   @Override
+   public Todos save(long userid, String todoDescription)
+   {
+      User currentUser = userService.findUserById(userid);
+      Todos newTodo = new Todos(currentUser, todoDescription);
 
       return todorepos.save(newTodo);
    }
