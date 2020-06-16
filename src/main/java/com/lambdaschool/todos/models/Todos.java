@@ -3,10 +3,14 @@ package com.lambdaschool.todos.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "todos")
-public class Todos {
+public class Todos extends Auditable implements Serializable
+{
+
+
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
    private long todoid;
@@ -17,6 +21,9 @@ public class Todos {
    private User user;
 
    private String description;
+
+   @Transient
+   private boolean completed = false;
 
    public Todos() {
    }
@@ -48,6 +55,16 @@ public class Todos {
 
    public void setDescription(String description) {
       this.description = description;
+   }
+
+   public boolean isCompleted()
+   {
+      return completed;
+   }
+
+   public void setCompleted(boolean completed)
+   {
+      this.completed = completed;
    }
 
    @Override
