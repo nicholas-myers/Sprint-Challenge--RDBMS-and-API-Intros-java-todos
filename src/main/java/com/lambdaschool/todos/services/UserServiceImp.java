@@ -52,6 +52,7 @@ public class UserServiceImp implements UserService {
 
       newUser.getTodos().clear();
          for (Todos t : user.getTodos()) {
+
             Todos newTodos = new Todos(newUser, t.getDescription());
             newUser.getTodos().add(newTodos);
          }

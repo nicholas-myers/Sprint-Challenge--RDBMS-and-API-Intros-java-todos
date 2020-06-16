@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "todos")
-public class Todos extends Auditable implements Serializable
+public class Todos extends Auditable
 {
 
 
@@ -31,6 +33,10 @@ public class Todos extends Auditable implements Serializable
    public Todos(User user, String description) {
       this.user = user;
       this.description = description;
+   }
+
+   public Date getCreatedDate(){
+      return createdDate;
    }
 
    public long getTodoid() {
@@ -65,6 +71,25 @@ public class Todos extends Auditable implements Serializable
    public void setCompleted(boolean completed)
    {
       this.completed = completed;
+   }
+
+   @Override
+   public boolean equals(Object o)
+   {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass())
+         return false;
+      Todos todos = (Todos) o;
+      return getTodoid() == todos.getTodoid() &&
+              isCompleted() == todos.isCompleted() &&
+              getUser().equals(todos.getUser()) &&
+              getDescription().equals(todos.getDescription());
+   }
+
+   @Override
+   public int hashCode()
+   {
+      return Objects.hash(getTodoid(), getUser(), getDescription(), isCompleted());
    }
 
    @Override
